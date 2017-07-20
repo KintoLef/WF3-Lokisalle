@@ -7,10 +7,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'deconnexion')
 }
 
 // vérification si l'utilisateur est connecté si oui on le redirige sur profil.php
-if(utilisateur_connecte())
-{
-    header('location:profil.php');
-}
+// if(utilisateur_connecte())
+// {
+//     header('location:profil.php');
+// }
 
 // vérification de l'existence des indices du formulaire
 if(isset($_POST['pseudo']) && isset($_POST['mdp']))
@@ -39,18 +39,7 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']))
         $_SESSION['membre']['statut'] = $info_utilisateur['statut'];
         $_SESSION['membre']['statut'] = $info_utilisateur['statut'];
         
-
         header('location:profil.php');
-
-        // même chose avec un foreach
-        // $_SESSION['utilisateur'] = array();
-        // foreach($info_utilisateur AS $indice => $valeur)
-        // {
-        //     if($indice != 'mdp')
-        //     {
-        //         $_SESSION['utilisateur'][$indice] = $valeur;
-        //     }            
-        // }
     }
     else {
         $message .= '<div class="alert alert-danger" role="alert">Attention, les informations saisies sont erronées !!</div>';
