@@ -4,7 +4,19 @@ require_once("../inc/init.inc.php");
 // Si l'utilisateur est admin
 if(utilisateur_admin()) 
 {
-    // On affiche la liste des membres dans la bdd
+    // Si l'admin veut supprimer un membre
+    if(isset($_GET['supprimer']) && !empty($_GET['id_membre']) && is_numeric($_GET['id_membre']))
+    {
+        // On récupère l'id_membre dans l'url
+        $id_membre = $_GET['id_membre'];
+        $membre_a_supprimer = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :id_membre");
+        $membre_a_supprimer->bindParam(":id_membre", $id_membre, PDO::PARAM_STR);
+        $membre_a_supprimer->execute();
+
+    }
+
+
+    // AFFICHAGE DE LA LISTE DES MEMBRES EN BDD
     $affichage = $pdo->query("SELECT * FROM membre");
     
     $nb_col = $affichage->columnCount();
@@ -42,11 +54,16 @@ if(utilisateur_admin())
                 $message .= '<td>' . $donnees . '</td>';
             }
         }
-        $message .= '<td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a> <a href="" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a href="" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
+        $message .= '<td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a> <a href="?modifier&id_membre=' .  $ligne['id_membre'] .'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a href="?supprimer&id_membre=' . $ligne['id_membre'] .'" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
         $message .= '</tr>';
     }
 
     $message .= '</table>';
+
+    if(isset($_GET['modifier']) && !empty($_GET['id_membre']) && is_numeric($_GET['id_membre']))
+    {
+        
+    }
 
 } else {
   header("location:../connexion.php");
