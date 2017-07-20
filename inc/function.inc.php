@@ -10,3 +10,13 @@ function utilisateur_connecte()
     }
     return false; // si on rentre pas dans le if, on retourne false
 }
+
+// fonction pour savoir si un utilisateur est connecté mais aussi si il a le satut administrateur
+function utilisateur_admin()
+{
+    if(utilisateur_connecte() && $_SESSION['membre']['statut'] == 1)
+    {
+        return true;
+    }
+    return false;
+}
