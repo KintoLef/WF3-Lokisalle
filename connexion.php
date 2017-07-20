@@ -9,7 +9,11 @@ if(isset($_GET['action']) && $_GET['action'] == 'deconnexion')
 // vérification si l'utilisateur est connecté si oui on le redirige sur profil.php
 if(utilisateur_connecte())
 {
+<<<<<<< HEAD
     header('location:profil.php');
+=======
+   header('location:profil.php');
+>>>>>>> modif
 }
 
 // vérification de l'existence des indices du formulaire
@@ -48,7 +52,7 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']))
 
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
-echo '<pre>'; print_r($_SESSION); echo '</pre>';
+// echo '<pre>'; print_r($_SESSION); echo '</pre>';
 ?>
 
 <div class="container">

@@ -15,9 +15,20 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo URL; ?>index.php">Accueil <span class="sr-only">(current)</span></a></li>
-            <li><a href="<?php echo URL; ?>inscription.php">Inscription</a></li>
-            <li><a href="<?php echo URL; ?>connexion.php">Connexion</a></li>
-            <li><a href="<?php echo URL; ?>profil.php">Profil</a></li>
+             <?php
+            if(!utilisateur_connecte())
+            { 
+            ?>
+                <li><a href="<?php echo URL; ?>inscription.php">Inscription</a></li>
+                <li><a href="<?php echo URL; ?>connexion.php">Connexion</a></li>
+            <?php
+            } else {
+            ?>           
+                <li><a href="<?php echo URL; ?>profil.php">Profil</a></li>
+                <li><a href="<?php echo URL; ?>connexion.php?action=deconnexion">Déconnexion</a></li>
+            <?php
+            }
+            ?>
         </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
