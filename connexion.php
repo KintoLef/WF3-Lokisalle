@@ -7,10 +7,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'deconnexion')
 }
 
 // vérification si l'utilisateur est connecté si oui on le redirige sur profil.php
-// if(utilisateur_connecte())
-// {
-//     header('location:profil.php');
-// }
+if(utilisateur_connecte())
+{
+   header('location:profil.php');
+}
 
 // vérification de l'existence des indices du formulaire
 if(isset($_POST['pseudo']) && isset($_POST['mdp']))
@@ -37,7 +37,7 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']))
         $_SESSION['membre']['email'] = $info_utilisateur['email'];
         $_SESSION['membre']['civilite'] = $info_utilisateur['civilite'];        
         $_SESSION['membre']['statut'] = $info_utilisateur['statut'];
-        $_SESSION['membre']['statut'] = $info_utilisateur['statut'];
+        $_SESSION['membre']['date_enregistrement'] = $info_utilisateur['date_enregistrement'];
         
         header('location:profil.php');
     }
