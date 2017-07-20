@@ -29,15 +29,15 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']))
         $info_utilisateur = $verif_connexion->fetch(PDO::FETCH_ASSOC);
         
         // on place toutes les informations de l'utilisateur dans la session sauf le mdp
-        $_SESSION['utilisateur'] = array();
-        $_SESSION['utilisateur']['id_membre'] = $info_utilisateur['id_membre'];
-        $_SESSION['utilisateur']['pseudo'] = $info_utilisateur['pseudo'];
-        $_SESSION['utilisateur']['nom'] = $info_utilisateur['nom'];
-        $_SESSION['utilisateur']['prenom'] = $info_utilisateur['prenom'];
-        $_SESSION['utilisateur']['email'] = $info_utilisateur['email'];
-        $_SESSION['utilisateur']['civilite'] = $info_utilisateur['civilite'];        
-        $_SESSION['utilisateur']['statut'] = $info_utilisateur['statut'];
-        $_SESSION['utilisateur']['statut'] = $info_utilisateur['statut'];
+        $_SESSION['membre'] = array();
+        $_SESSION['membre']['id_membre'] = $info_utilisateur['id_membre'];
+        $_SESSION['membre']['pseudo'] = $info_utilisateur['pseudo'];
+        $_SESSION['membre']['nom'] = $info_utilisateur['nom'];
+        $_SESSION['membre']['prenom'] = $info_utilisateur['prenom'];
+        $_SESSION['membre']['email'] = $info_utilisateur['email'];
+        $_SESSION['membre']['civilite'] = $info_utilisateur['civilite'];        
+        $_SESSION['membre']['statut'] = $info_utilisateur['statut'];
+        $_SESSION['membre']['statut'] = $info_utilisateur['statut'];
         
 
         header('location:profil.php');
@@ -59,7 +59,7 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']))
 
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
-echo '<pre>'; print_r($_SESSION); echo '</pre>';
+// echo '<pre>'; print_r($_SESSION); echo '</pre>';
 ?>
 
 <div class="container">

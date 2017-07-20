@@ -1,6 +1,13 @@
 <?php
 require_once("inc/init.inc.php");
 
+// Vérification si l'utilisateur est connecté dans ce cas on le redirige sur profil
+if(utilisateur_connecte())
+{
+    // header doit être placé avant tout affichage, il masque aussi les erreurs
+    header("location:profil.php");
+}
+
 // Déclaration de variables vides pour affichage dans les values du formulaire
 $pseudo = "";
 $mdp = "";
@@ -28,7 +35,7 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']) && isset($_POST['nom']) && is
     $taille_pseudo = iconv_strlen($pseudo);
     if($taille_pseudo < 5 || $taille_pseudo > 15)
     {
-      $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la taille du pseudo est incorrecte.<br />En effet, le pseudo doît être compris entre 5 et 15 caractères inclus.</div>';
+      $message .= '<div class="alert alert-danger" role="alert">Attention, la taille du pseudo est incorrecte.<br />En effet, le pseudo doît être compris entre 5 et 15 caractères inclus.</div>';
       $erreur = true; // Si l'on rentre dans cette condition alors il y a une erreur.
     }
 
@@ -40,14 +47,14 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']) && isset($_POST['nom']) && is
     if(!$verif_caracteres && !empty($pseudo)) 
     {
       // On rentre dans cette condition si verif_caracteres contient 0 donc s'il y a des caractères non-autorisés
-      $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, caractères non autorisés dans le pseudo.<br />Caractères autorisés: A-Z ET 0-9.</div>';
+      $message .= '<div class="alert alert-danger" role="alert">Attention, caractères non autorisés dans le pseudo.<br />Caractères autorisés: A-Z ET 0-9.</div>';
       $erreur = true; // Si l'on rentre dans cette condition alors il y a une erreur
     }
 
     // Vérification de l'adresse email
     if(!filter_var($email, FILTER_VALIDATE_EMAIL) &&!empty($email))
     {
-      $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, caractères non autorisés dans le pseudo.<br />Caractères autorisés: A-Z ET 0-9.</div>';
+      $message .= '<div class="alert alert-danger" role="alert">Attention, caractères non autorisés dans le pseudo.<br />Caractères autorisés: A-Z ET 0-9.</div>';
       $erreur = true;
     }
 
@@ -59,7 +66,7 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']) && isset($_POST['nom']) && is
     // On vérifie si la requête $verif_pseudo renvoie au moins une ligne de résultat
     if($disponibilite_pseudo->rowCount() > 0)
     {
-      $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, votre pseudo n\'est pas disponible.<br />Veuillez en saisir un nouveau.</div>';
+      $message .= '<div class="alert alert-danger" role="alert">Attention, votre pseudo n\'est pas disponible.<br />Veuillez en saisir un nouveau.</div>';
       $erreur = true; // Si l'on rentre dans cette condition alors il y a une erreur
     }
 
