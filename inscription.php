@@ -74,6 +74,9 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']) && isset($_POST['nom']) && is
       $insertion->bindParam(":email", $email, PDO::PARAM_STR);
       $insertion->bindParam(":civilite", $civilite, PDO::PARAM_STR);
       $insertion->execute();
+
+      // On redirige sur la page connexion
+      header("location:connexion.php");
     }
 }
 
@@ -117,7 +120,7 @@ require_once("inc/nav.inc.php");
               <label for="civilite">Civilité:</label>
               <select class="form-control" name="civilite" id="civilite">
                 <option value="m">Homme</option>
-                <option value="f" <?php if($sexe == "f") { echo 'selected'; } ?>>Femme</option>
+                <option value="f" <?php if($civilite == "f") { echo 'selected'; } ?>>Femme</option>
               </select>
             </div>
             <div class="form-group">
