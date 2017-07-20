@@ -12,6 +12,8 @@ require_once("inc/nav.inc.php");
     </div>
     <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
 
+    
+
 </div><!-- /.container -->
         
 <?php
