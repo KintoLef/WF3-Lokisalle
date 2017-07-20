@@ -27,7 +27,7 @@ require_once("inc/nav.inc.php");
     <div class="row">
         <div class="col-sm-9 col-sm-offset-2">
             <div class="col-sm-10" style="border-radius: 3px; border: 1px solid #AAA;">
-                <h2 style="color: black;">Informations:</h2>
+                <h2 style="color: black;">Informations :</h2>
                 <ul class="list-group">
                     <li class="list-group-item">Pseudo: <?php echo $_SESSION['membre']['pseudo'] ?></li>
                     <li class="list-group-item">Nom: <?php echo $_SESSION['membre']['nom'] ?></li>
