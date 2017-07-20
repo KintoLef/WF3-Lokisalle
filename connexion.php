@@ -53,12 +53,13 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']))
         // }
     }
     else {
-        $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, les informations saisies sont erronées !!</div>';
+        $message .= '<div class="alert alert-danger" role="alert">Attention, les informations saisies sont erronées !!</div>';
     }
 }
 
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
+echo '<pre>'; print_r($_SESSION); echo '</pre>';
 ?>
 
 <div class="container">
@@ -68,25 +69,25 @@ require_once("inc/nav.inc.php");
     </div>
     <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
 
-    <form class="form-horizontal col-sm-8">
-        <div class="form-group">
-            <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
-            <div class="col-sm-4">
-            <input type="text" class="form-control" id="pseudo" placeholder="Pseudo">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <form method="post" action="">
+            <div class="form-group">
+              <label for="pseudo">Pseudo:</label>
+              <!-- On met les value="" pour rafraichir le champ à chaque submit -->
+              <input type="text" class="form-control" id="pseudo" name="pseudo">
+            </div>  
+            <div class="form-group">
+              <label for="mdp">Mot de passe:</label>
+              <input type="text" class="form-control" id="mdp" name="mdp">
+            </div>               
+            <div class="form-group">
+              <button type="submit" name="inscription" id="inscription" class="btn btn-primary form-control">Se Connecter</button>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="mdp" class="col-sm-2 control-label">Mot de Passe</label>
-            <div class="col-sm-4">
-            <input type="text" class="form-control" id="mdp" placeholder="Password">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Se Connecter</button>
-            </div>
-        </div>
-    </form>
+              
+          </form>
+        </div> <!-- /.col-sm-4 -->
+      </div> <!-- /.row -->
 
 </div><!-- /.container -->
         

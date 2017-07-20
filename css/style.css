@@ -5,7 +5,9 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
-
+.alert-danger{
+    margin-top: 20px;
+}
 footer{
     height: 30px;
     text-align: right;
