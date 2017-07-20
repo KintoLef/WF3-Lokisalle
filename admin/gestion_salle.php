@@ -177,8 +177,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
                     echo '<th style="padding: 10px; text-align: center;">' . $colonne['name'] . '</th>';
                 }
 
-                echo '<th">Modifier</th>';
-                echo '<th">Supprimer</th>';
+                echo '<th>action</th>';
             echo '</tr>';
 
             while($ligne = $salles->fetch(PDO::FETCH_ASSOC))
@@ -197,13 +196,12 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
                     }
                     else
                     {
-                      echo '<td">' . $salle . '</td>';
+                      echo '<td>' . $salle . '</td>';
                     }
 
                     
                 }
-                echo '<td><a href="?action=modif&id_article=' . $ligne['id_salle'] . '" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Modifier</a></td>';
-                echo '<td><a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer cet article\'));" href="?action=suppr&id_article=' . $ligne['id_salle'] . '" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Supprimer</a></td>';
+                echo '<td><a href="?action=modif&id_article=' . $ligne['id_salle'] . '" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Modifier</a><a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer cet article\'));" href="?action=suppr&id_article=' . $ligne['id_salle'] . '" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Supprimer</a></td>';
 
                 echo '</tr>';
             }
