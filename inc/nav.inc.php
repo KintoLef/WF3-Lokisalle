@@ -14,7 +14,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Espace membre<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(!utilisateur_admin()) { ?><span class="glyphicon glyphicon-user"></span> Espace membre <?php } else { ?><span class="glyphicon glyphicon-king"></span> Espace admin<?php } ?><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         if(!utilisateur_connecte())
@@ -26,6 +26,18 @@
                         } else {
                         ?>           
                             <li><a href="<?php echo URL; ?>profil.php">Profil</a></li>
+                            <?php
+                            if(utilisateur_admin())
+                            { 
+                            ?>
+                                <li><a href="<?php echo URL; ?>admin/gestion_avis.php">Gestion avis</a></li>
+                                <li><a href="<?php echo URL; ?>admin/gestion_membre.php">Gestion membre</a></li>
+                                <li><a href="<?php echo URL; ?>admin/gestion_produit.php">Gestion produit</a></li>
+                                <li><a href="<?php echo URL; ?>admin/gestion_salle.php">Gestion salle</a></li>
+
+                            <?php
+                            }
+                            ?>
                             <li><a href="<?php echo URL; ?>connexion.php?action=deconnexion">Déconnexion</a></li>
                         <?php
                         }
