@@ -14,7 +14,7 @@
     </head>
     <body>
         <header>
-            Bonjour
+           
         </header>
 
         <footer>
