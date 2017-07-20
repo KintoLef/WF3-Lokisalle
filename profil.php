@@ -34,6 +34,7 @@ require_once("inc/nav.inc.php");
                     <li class="list-group-item">Prénom: <?php echo $_SESSION['membre']['prenom'] ?></li>
                     <li class="list-group-item">Email: <?php echo $_SESSION['membre']['email'] ?></li>
                     <li class="list-group-item">Sexe: <?php echo $_SESSION['membre']['civilite'] ?></li>
+                    <li class="list-group-item">Membre depuis: <?php echo $_SESSION['membre']['date_enregistrement'] ?></li>
                 </ul>
             </div>
         </div>

@@ -9,7 +9,11 @@ if(isset($_GET['action']) && $_GET['action'] == 'deconnexion')
 // vérification si l'utilisateur est connecté si oui on le redirige sur profil.php
 if(utilisateur_connecte())
 {
+<<<<<<< HEAD
+    header('location:profil.php');
+=======
    header('location:profil.php');
+>>>>>>> modif
 }
 
 // vérification de l'existence des indices du formulaire
