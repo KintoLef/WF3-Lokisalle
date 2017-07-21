@@ -10,6 +10,9 @@ $liste_prix = $pdo->query("SELECT DISTINCT prix FROM produit ORDER BY prix ASC")
 $liste_date_arrivee = $pdo->query("SELECT date_arrivee FROM produit ORDER BY date_arrivee DESC");
 $liste_date_depart = $pdo->query("SELECT date_depart FROM produit ORDER BY date_depart DESC");
 
+// On sélectionne les informations des tables produits et salles pour l'affichage
+$contenu = $pdo->query("SELECT * FROM salle s, produit p WHERE p.id_salle = s.id_salle");
+
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
 ?>
@@ -21,7 +24,7 @@ require_once("inc/nav.inc.php");
     </div>
     <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <label>Catégorie</label>
             <ul class="list-group">
             <?php
@@ -74,6 +77,53 @@ require_once("inc/nav.inc.php");
                 </div>
             </form>
         </div> <!-- /.col-sm-3 -->
+        <div class="col-sm-9 col-sm-offset-1">
+            <div class="row">
+                <?php
+                // On crée un compteur initié à 0
+                $compteur = 0;
+                while($ligne = $contenu->fetch(PDO::FETCH_ASSOC))
+                {
+                    // On crée l'objet date instanciée par la classe DateTime 
+                    $date_arrivee = new DateTime($ligne['date_arrivee']);
+
+                    $date_depart = new DateTime($ligne['date_depart']);                   
+                    
+                    // On incrémente le compteur dans la boucle while
+                    $compteur++;
+                    if($compteur % 3 == 0)
+                    {
+                        echo '<div class="row">';
+                    }
+                    echo '<div class="col-sm-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><img src="' . URL . 'photo/' . $ligne['photo'] . '" class="img-responsive" /></div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>' . $ligne['titre'] . '</p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="text-right"><strong>' . $ligne['prix'] . ' €</strong></p>
+                                        </div> 
+                                    </div>
+                                    <p>' . $ligne['description'] . '</p>
+                                    <p><span class="glyphicon glyphicon-calendar"></span> ' . date_format($date_arrivee, 'd/m/Y') . ' au ' . date_format($date_depart, 'd/m/Y') . '</p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="../fiche_produit.php?id_produit=' . $ligne['id_produit'] . '" class="btn btn-default pull-right"><span class="glyphicon glyphicon-search"></span> Voir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                }
+                ?>
+                
+            </div><!-- /.row -->
+        </div><!-- /.col-sm-8 -->
     </div><!-- /.row -->
     
 

@@ -30,6 +30,9 @@ p.info_periode {
   font-style: italic;
   font-size: 14px;
 }
+div.panel-heading {
+  padding: 0px;
+}
 
 /******************* GESTION_MEMBRE ***************************/
 table {
