@@ -12,7 +12,6 @@ if(utilisateur_admin())
         $membre_a_supprimer = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :id_membre");
         $membre_a_supprimer->bindParam(":id_membre", $id_membre, PDO::PARAM_STR);
         $membre_a_supprimer->execute();
-
     }
 
 
@@ -60,11 +59,36 @@ if(utilisateur_admin())
 
     $message .= '</table>';
 
+    // Récupération de l'id_membre à modifier
+    $id_membre = $_GET['id_membre'];
+    $membre_a_modifier = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :id_membre");
+    $membre_a_modifier->bindParam(":id_membre", $id_membre, PDO::PARAM_STR);
+    $membre_a_modifier->execute();
+    
+
+} else {
+  header("location:../connexion.php");
+  exit(); // permet d'arrêter l'exécution du script
+}
+
+require_once("../inc/head.inc.php");
+require_once("../inc/nav.inc.php");
+// echo '<pre>'; print_r($_POST); echo '</pre>';
+?>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Gestion des membres</h1>
+    </div>
+    <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
+
+    <?php
     // Si l'on clique sur le bouton modifier
     if(isset($_GET['modifier']) && !empty($_GET['id_membre']) && is_numeric($_GET['id_membre']))
     {
-        // Affichage des champs input 
-        $message .= '
+    ?>
+        <!-- Affichage des champs input --> 
         <form method="post" action="">
             <div class="row">
                 <div class="col-md-6">
@@ -113,34 +137,11 @@ if(utilisateur_admin())
                     <button type="submit" class="btn btn-primary btn-membre pull-right">Enregistrer</button>    
                 </div>
             </div>
-            </form>'
-            ;
-
-
-        $id_membre = $_GET['id_membre'];
-        $membre_a_modifier = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :id_membre");
-        $membre_a_modifier->bindParam(":id_membre", $id_membre, PDO::PARAM_STR);
-        $membre_a_modifier->execute();
+        </form>
+    <?php
     }
-
-} else {
-  header("location:../connexion.php");
-  exit(); // permet d'arrêter l'exécution du script
-}
-
-require_once("../inc/head.inc.php");
-require_once("../inc/nav.inc.php");
-echo '<pre>'; print_r($_POST); echo '</pre>';
-?>
-
-<div class="container">
-
-    <div class="starter-template">
-        <h1>Gestion des membres</h1>
-    </div>
-    <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
-
-    
+    ?>
+            
 
 </div><!-- /.container -->
         

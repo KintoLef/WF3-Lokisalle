@@ -16,11 +16,15 @@ footer{
     background-color: #333;
     color: white;
     padding-top: 5px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 /******************* GESTION_MEMBRE ***************************/
+<<<<<<< HEAD
 table { 
+=======
+table {
+>>>>>>> 4c12d6b79a2d36c4edd6dfeaaeaceffa635927a4
   margin: 10px auto; 
   border-collapse: collapse; 
   text-align: center;
@@ -34,8 +38,13 @@ table th {
   table td {
     padding: 5px;
   }
+
+  td a.btn {
+    display: inline-block;
+  }
   a .glyphicon {
-    font-size: 16px;
+    font-size: 1.5em;
+    display: inline-block;
   }
   div label.gestion_membre {
     margin-top: 40px;
