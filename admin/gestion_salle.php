@@ -162,7 +162,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
         echo '<hr />';
 
         // balise ouverture du tableau
-        echo '<table border="1" style="width:80%; margin: 10px auto; border-collapse: collapse; text-align: center; background: rgba(238, 238, 238, 0.7); border: 1px solid #999;">';
+        echo '<table border="1">';
 
             // première ligne du tableau pour le nom des colonnes
             echo '<tr>';
@@ -201,7 +201,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
 
                     
                 }
-                echo '<td><a href="?action=modif&id_article=' . $ligne['id_salle'] . '" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Modifier</a><a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer cet article\'));" href="?action=suppr&id_article=' . $ligne['id_salle'] . '" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Supprimer</a></td>';
+                echo '<td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a> <a href="?modifier&id_salle=' .  $ligne['id_salle'] .'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a href="?supprimer&id_salle=' . $ligne['id_salle'] .'" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
 
                 echo '</tr>';
             }
