@@ -234,7 +234,7 @@ require_once("../inc/nav.inc.php");
                 {
                     // echo '<pre>'; print_r($resultat->getColumnMeta($i)); echo '</pre>'; echo '<hr />';
                     $colonne = $salles->getColumnMeta($i); // on récupère les informations de la colonne en cours afin ensuite de demander le name
-                    echo '<th style="padding: 10px; text-align: center;">' . $colonne['name'] . '</th>';
+                    echo '<th>' . $colonne['name'] . '</th>';
                 }
 
                 echo '<th>action</th>';
@@ -270,6 +270,7 @@ require_once("../inc/nav.inc.php");
       
       ?>
         <a href="?action=ajout" class="btn btn-primary btn-membre pull-right">Ajouter une salle</a>
+        <br>
 
       <?php
 
@@ -280,7 +281,7 @@ require_once("../inc/nav.inc.php");
         <div class="row">
           <div class="col-md-5">
           
-            <!-- id_article caché via 'hidden' -->
+            <!-- id_salle caché via 'hidden' -->
             <input type="hidden" class="form-control" name="id_salle" id="id_salle" value="<?php echo $id_salle ?>">
             
             <label for="titre" class="gestion_membre">Titre</label>

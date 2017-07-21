@@ -4,7 +4,7 @@ body {
 }
 
 .starter-template {
-  padding: 40px 15px;
+  padding: 40px 15px 20px;
   text-align: center;
 }
 .alert-danger{
@@ -21,6 +21,7 @@ footer{
 
 /******************* GESTION_MEMBRE ***************************/
 table {
+  width: 100%;
   margin: 10px auto; 
   border-collapse: collapse; 
   text-align: center;
@@ -53,7 +54,7 @@ table th {
     margin-top: 40px;
   }
   
-/******************* FORMULAIRE ***************************/
-.input-group{
+/******************* FORMULAIRE AJOUT/MODIF SALLE ***************************/
+.input-group {
   width: 100%;
 }
