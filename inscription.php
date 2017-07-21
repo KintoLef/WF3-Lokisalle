@@ -30,12 +30,12 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']) && isset($_POST['nom']) && is
     // Variable de contrôle des erreurs
     $erreur = "";
 
-    // Contrôle sur la taille du pseudo (entre 5 et 15 caractères)
+    // Contrôle sur la taille du pseudo (entre 4 et 14 caractères)
     // On rentre la taille du pseudo dans une variable
     $taille_pseudo = iconv_strlen($pseudo);
-    if($taille_pseudo < 5 || $taille_pseudo > 15)
+    if($taille_pseudo < 4 || $taille_pseudo > 14)
     {
-      $message .= '<div class="alert alert-danger" role="alert">Attention, la taille du pseudo est incorrecte.<br />En effet, le pseudo doît être compris entre 5 et 15 caractères inclus.</div>';
+      $message .= '<div class="alert alert-danger" role="alert">Attention, la taille du pseudo est incorrecte.<br />En effet, le pseudo doît être compris entre 4 et 14 caractères inclus.</div>';
       $erreur = true; // Si l'on rentre dans cette condition alors il y a une erreur.
     }
 
@@ -52,9 +52,9 @@ if(isset($_POST['pseudo']) && isset($_POST['mdp']) && isset($_POST['nom']) && is
     }
 
     // Vérification de l'adresse email
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL) &&!empty($email))
+    if(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) &&!empty($email))
     {
-      $message .= '<div class="alert alert-danger" role="alert">Attention, caractères non autorisés dans le pseudo.<br />Caractères autorisés: A-Z ET 0-9.</div>';
+      $message .= '<div class="alert alert-danger" role="alert">Attention, votre adresse email est vide ou invalide.<br />Veuillez la saisir à nouveau.</div>';
       $erreur = true;
     }
 
