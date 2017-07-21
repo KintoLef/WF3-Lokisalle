@@ -64,3 +64,8 @@ table th {
   button.btn-membre {
     margin-top: 40px;
   }
+  
+/******************* FORMULAIRE ***************************/
+.input-group{
+  width: 100%;
+}
