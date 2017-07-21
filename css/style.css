@@ -3,6 +3,13 @@ body {
   box-sizing: border-box;
 }
 
+div.navbar-header a {
+  height: 56px;
+}
+ul.nav.navbar-nav li a {
+  height: 56px;
+  /*padding-top: 5px;*/
+}
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -18,13 +25,14 @@ footer{
     padding-top: 5px;
     margin-top: 20px;
 }
+/********************** INDEX ****************************/
+p.info_periode {
+  font-style: italic;
+  font-size: 14px;
+}
 
 /******************* GESTION_MEMBRE ***************************/
-<<<<<<< HEAD
-table { 
-=======
 table {
->>>>>>> 4c12d6b79a2d36c4edd6dfeaaeaceffa635927a4
   margin: 10px auto; 
   border-collapse: collapse; 
   text-align: center;

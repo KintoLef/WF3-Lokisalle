@@ -1,12 +1,12 @@
 <?php
 require_once("../inc/init.inc.php");
 
-if(utilisateur_admin()) 
+if(!utilisateur_admin()) 
 {
-
+    header("location:../connexion.php");
+    exit(); // permet d'arrêter l'exécution du script
 } else {
-  header("location:../connexion.php");
-  exit(); // permet d'arrêter l'exécution du script
+    
 }
 
 require_once("../inc/head.inc.php");
