@@ -3,6 +3,13 @@ body {
   box-sizing: border-box;
 }
 
+div.navbar-header a {
+  height: 56px;
+}
+ul.nav.navbar-nav li a {
+  height: 56px;
+  /*padding-top: 5px;*/
+}
 .starter-template {
   padding: 40px 15px 20px;
   text-align: center;
@@ -17,6 +24,11 @@ footer{
     color: white;
     padding-top: 5px;
     margin-top: 20px;
+}
+/********************** INDEX ****************************/
+p.info_periode {
+  font-style: italic;
+  font-size: 14px;
 }
 
 /******************* GESTION_MEMBRE ***************************/

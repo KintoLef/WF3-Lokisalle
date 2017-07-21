@@ -213,7 +213,7 @@ require_once("../inc/nav.inc.php");
                     <div class="input-group">
                         <select name="civilite" id="civilite">                    
                             <option value="m">Homme</option>
-                            <option value="f" <?php if($civilite == "f") { echo 'selected'; } ?>>Femme</option>                                                                
+                            <option value="f" <?php if($civilite == "f") { echo 'selected'; } ?>>Femme</option>                          
                         </select>
                     </div>
                     <label class="gestion_membre" for="statut">Statut</label>
