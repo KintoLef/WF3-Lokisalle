@@ -1,5 +1,5 @@
 <?php
-require_once("inc/init.inc.php");
+require_once("../inc/init.inc.php");
 
 if(utilisateur_admin()) 
 {
@@ -9,8 +9,8 @@ if(utilisateur_admin())
   exit(); // permet d'arrêter l'exécution du script
 }
 
-require_once("inc/head.inc.php");
-require_once("inc/nav.inc.php");
+require_once("../inc/head.inc.php");
+require_once("../inc/nav.inc.php");
 ?>
 
 <div class="container">
@@ -25,5 +25,5 @@ require_once("inc/nav.inc.php");
 </div><!-- /.container -->
         
 <?php
-require_once("inc/footer.inc.php");
+require_once("../inc/footer.inc.php");
 ?>
