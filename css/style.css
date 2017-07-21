@@ -20,11 +20,7 @@ footer{
 }
 
 /******************* GESTION_MEMBRE ***************************/
-<<<<<<< HEAD
-table { 
-=======
 table {
->>>>>>> 4c12d6b79a2d36c4edd6dfeaaeaceffa635927a4
   margin: 10px auto; 
   border-collapse: collapse; 
   text-align: center;
@@ -56,3 +52,8 @@ table th {
   button.btn-membre {
     margin-top: 40px;
   }
+  
+/******************* FORMULAIRE ***************************/
+.input-group{
+  width: 100%;
+}
