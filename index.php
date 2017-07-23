@@ -89,11 +89,11 @@ require_once("inc/nav.inc.php");
 
                     $date_depart = new DateTime($ligne['date_depart']);                   
                     
-                    // On incrémente le compteur dans la boucle while
-                    $compteur++;
+                    
+                    
                     if($compteur % 3 == 0)
                     {
-                        echo '<div class="row">';
+                        echo '</div><div class="row">';
                     }
                     echo '<div class="col-sm-4">
                             <div class="panel panel-default">
@@ -107,26 +107,27 @@ require_once("inc/nav.inc.php");
                                             <p class="text-right"><strong>' . $ligne['prix'] . ' €</strong></p>
                                         </div> 
                                     </div>
-                                    <p>' . $ligne['description'] . '</p>
+                                    <p>' . substr_replace($ligne['description'], ' ...', 30) . '</p>
                                     <p><span class="glyphicon glyphicon-calendar"></span> ' . date_format($date_arrivee, 'd/m/Y') . ' au ' . date_format($date_depart, 'd/m/Y') . '</p>
                                     <div class="row">
                                         <div class="col-sm-6">
 
                                         </div>
                                         <div class="col-sm-6">
-                                            <a href="../fiche_produit.php?id_produit=' . $ligne['id_produit'] . '" class="btn btn-default pull-right"><span class="glyphicon glyphicon-search"></span> Voir</a>
+                                            <a href="fiche_produit.php?id_produit=' . $ligne['id_produit'] . '" class="pull-right"><span class="glyphicon glyphicon-search" style="font-size: 1em;"></span> Voir</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>';
+                            </div>
+                        </div>';
+                        // On incrémente le compteur dans la boucle while
+                        $compteur++;
                 }
                 ?>
                 
             </div><!-- /.row -->
-        </div><!-- /.col-sm-8 -->
+        </div><!-- /.col-sm-9 -->
     </div><!-- /.row -->
-    
-
 </div><!-- /.container -->
         
 <?php

@@ -7,14 +7,14 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav left">
                     <li class="active"><a href="<?php echo URL; ?>index.php">Accueil <span class="sr-only">(current)</span></a></li>
                    <li><a href="<?php echo URL; ?>info.php">Qui sommes-nous ?</a></li>
                    <li><a href="<?php echo URL; ?>contact.php">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(!utilisateur_admin()) { ?><span class="glyphicon glyphicon-user"></span> Espace membre <?php } else { ?><span class="glyphicon glyphicon-king"></span> Espace admin<?php } ?><span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(!utilisateur_admin()) { ?><span class="glyphicon glyphicon-user"></span> Espace membre <?php } else { ?><span class="glyphicon glyphicon-king"></span> Espace admin<?php } ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         if(!utilisateur_connecte())

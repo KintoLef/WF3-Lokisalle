@@ -3,15 +3,16 @@ body {
   box-sizing: border-box;
 }
 
+/*********************** NAV *************************/
 div.navbar-header a {
   height: 56px;
 }
-ul.nav.navbar-nav li a {
+ul.nav.navbar-nav.left li a {
   height: 56px;
   /*padding-top: 5px;*/
 }
 .starter-template {
-  padding: 40px 15px 20px;
+  padding: 10px 15px 20px;
   text-align: center;
 }
 .alert-danger{
@@ -32,6 +33,12 @@ p.info_periode {
 }
 div.panel-heading {
   padding: 0px;
+}
+
+/******************* FICHE_PORDUIT ***********************/
+label.info_comp {
+  margin-top: 20px;
+  font-size: 13px;
 }
 
 /******************* GESTION_MEMBRE ***************************/
