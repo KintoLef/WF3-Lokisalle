@@ -28,6 +28,13 @@ elseif(!empty($_GET['ville']))
     $contenu->bindParam(":ville", $filtre_ville, PDO::PARAM_STR);
     $contenu->execute();
 }
+elseif(!empty($_GET['prix']))
+{
+    $filtre_prix = $_GET['prix'];
+    $contenu = $pdo->prepare("SELECT * FROM salle s, produit p WHERE p.id_salle = s.id_salle AND prix < :prix");
+    $contenu->bindParam(":prix", $filtre_prix, PDO::PARAM_STR);
+    $contenu->execute();
+}
 // echo '<pre>'; print_r($_POST); echo '</pre>';
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
@@ -75,7 +82,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
                 </div>
                 <div class="form-group">
                     <label>Prix max.</label>
-                    <input type="range" name="prix" min="50" max="1000" value="0" step="10" oninput="document.getElementById('AfficheRange').textContent=value" />
+                    <input type="range" name="prix" id="prix" min="50" max="1000" value="0" step="10" oninput="document.getElementById('AfficheRange').textContent=value" />
                     <span id="AfficheRange">0</span>
                 </div>
                 <label>Période</label>
