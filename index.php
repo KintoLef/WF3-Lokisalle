@@ -13,6 +13,22 @@ $liste_date_depart = $pdo->query("SELECT date_depart FROM produit ORDER BY date_
 // On sélectionne les informations des tables produits et salles pour l'affichage
 $contenu = $pdo->query("SELECT * FROM salle s, produit p WHERE p.id_salle = s.id_salle");
 
+// FILTRES 
+if(!empty($_GET['categorie']))
+{
+    $filtre_categorie = $_GET['categorie'];
+    $contenu = $pdo->prepare("SELECT * FROM salle s, produit p WHERE p.id_salle = s.id_salle AND categorie = :categorie");
+    $contenu->bindParam(":categorie", $filtre_categorie, PDO::PARAM_STR);
+    $contenu->execute();
+}
+elseif(!empty($_GET['ville']))
+{
+    $filtre_ville = $_GET['ville'];
+    $contenu = $pdo->prepare("SELECT * FROM salle s, produit p WHERE p.id_salle = s.id_salle AND ville = :ville");
+    $contenu->bindParam(":ville", $filtre_ville, PDO::PARAM_STR);
+    $contenu->execute();
+}
+// echo '<pre>'; print_r($_POST); echo '</pre>';
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
 ?>
@@ -20,7 +36,7 @@ require_once("inc/nav.inc.php");
 <div class="container">
 
     <div class="starter-template">
-        <h1>Bienvenue sur Lokisalle</h1>
+        <h1  id="ligne_une">Bienvenue sur Lokisalle</h1>
     </div>
     <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
     <div class="row">
@@ -44,14 +60,14 @@ require_once("inc/nav.inc.php");
             ?>
             </ul>
             
-            <form method="post" action="">
+            <form method="post" action="ajax.php">
                 <label>Capacité</label>
                 <div class="form-group">
-                    <select name="capacite" id="capacite"  class="form-control">
+                    <select name="capacite" id="capacite" class="form-control">
                     <?php                               
                     while($capacite = $liste_capacite->fetch(PDO::FETCH_ASSOC))
                     {
-                        echo '<option><a href="?capacite=' . $capacite['capacite'] . '">' . $capacite['capacite'] . '</a></option>';
+                        echo '<option>' . $capacite['capacite'] . '</option>';
                     }
                     ?>
                     </select>
@@ -77,7 +93,7 @@ require_once("inc/nav.inc.php");
                 </div>
             </form>
         </div> <!-- /.col-sm-3 -->
-        <div class="col-sm-9 col-sm-offset-1">
+        <div class="col-sm-9 col-sm-offset-1" id="resultat">
             <div class="row">
                 <?php
                 // On crée un compteur initié à 0
