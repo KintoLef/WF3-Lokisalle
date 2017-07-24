@@ -1,0 +1,16 @@
+$test = getDatesFromRange( $date_arrivee, $date_depart);
+    foreach($test AS $check_date)
+    {
+        $verif_dispo = $pdo->prepare("SELECT * FROM produit WHERE id_salle = :id_salle AND $check_date != :date_arrivee AND $check_date != :date_depart");
+            
+        $verif_dispo->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
+        $verif_dispo->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
+        $verif_dispo->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
+        $verif_dispo->execute();
+        if($verif_dispo->rowCount() > 1 && isset($_GET['action']) && $_GET['action'] == 'ajout')
+        {
+            // si l'on obtient au moins 1 ligne de resultat alors la référence est déjà prise.
+            $message = '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la salle et/ou les dates sont indisponibles<br />Veuillez vérifier votre saisie</div>';
+            $erreur = true;
+        }
+    }

@@ -22,3 +22,14 @@ function utilisateur_admin()
 }
 
 // fonction pour vérifier la disponiblité des produits
+function getDatesFromRange($start, $end)
+{
+    $interval = new DateInterval('P1D');
+    $realEnd = new DateTime($end);
+    $realEnd->add($interval);
+    $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+    foreach ($period as $date) {
+        $array[] = $date->format('d-m-Y');
+    }
+    return $array;
+}
