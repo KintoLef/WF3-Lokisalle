@@ -75,7 +75,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
                 </div>
                 <div class="form-group">
                     <label>Prix max.</label>
-                    <input type="range" name="prix" min="50" max="1000" value="0" step="10" oninput="document.getElementById('AfficheRange').textContent=value" />
+                    <input type="range" name="prix" id="prix" min="50" max="1000" value="0" step="10" oninput="document.getElementById('AfficheRange').textContent=value" />
                     <span id="AfficheRange">0</span>
                 </div>
                 <label>Période</label>
