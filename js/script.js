@@ -39,10 +39,10 @@ if(document.getElementById('capacite') != null) {
         xhttp.send(param);
     }
 }
-else if(document.getElementById('prix') != null) {
+if(document.getElementById('prix') != null) {
 
     // On récupère le select avec l'id capacite, on lui ajoute l'évènement change
-    document.getElementById('prix').addEventListener('mouseup', ajax);
+    document.getElementById('prix').addEventListener('change', ajax);
 
     function ajax () {
         // alert('ok')
@@ -58,6 +58,7 @@ else if(document.getElementById('prix') != null) {
 
         // On définit les paramètres à envoyer dans la requête HTTP
         var param = "prix=" + valeur;
+        console.log(param);
 
 
         xhttp.open("POST", file, true);
