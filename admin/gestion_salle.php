@@ -261,7 +261,7 @@ require_once("../inc/nav.inc.php");
 
                     
                 }
-                echo '<td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a> <a href="?modifier&id_salle=' .  $ligne['id_salle'] .'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer cette salle\'));" href="?supprimer&id_salle=' . $ligne['id_salle'] .'" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
+                echo '<td><a href="gestion_produit.php?action=ajout" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a> <a href="?modifier&id_salle=' .  $ligne['id_salle'] .'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer cette salle\'));" href="?supprimer&id_salle=' . $ligne['id_salle'] .'" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
 
                 echo '</tr>';
             }

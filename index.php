@@ -80,13 +80,13 @@ require_once("inc/nav.inc.php");
                 <p class="info_periode">Date d'arrivée</p>
                 <div class="input-group">            
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <input type="datetime" class="form-control" placeholder="dd/mm/yyyy hh:mm" id="date_arrivee" name="date_arrivee" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" id="date_arrivee" name="date_arrivee" aria-describedby="basic-addon1">
                 </div>
                 <br>
                 <p class="info_periode">Date de départ</p>
                 <div class="input-group">            
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <input type="datetime" class="form-control" placeholder="dd/mm/yyyy hh:mm" id="date_depart" name="date_depart" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" id="date_depart" name="date_depart" aria-describedby="basic-addon1">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-membre">Filtrer</button>

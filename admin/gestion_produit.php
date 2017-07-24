@@ -66,39 +66,54 @@ if(isset($_POST['salle']) && isset($_POST['date_arrivee']) && isset($_POST['date
     $date_depart = $_POST['date_depart'];
     $prix = $_POST['prix'];
 
-    // vérification si la salle est bien disponible aux dates définies
-    
-    
-        // insertion dans la BDD
-        if($erreur !== true) // si $erreur est différent de true lors les contrôles préalables sont ok
-        {
-        
-            if(isset($_GET['action']) && $_GET['action'] == 'ajout')
-            {
-            $enregistrement_produit = $pdo->prepare("INSERT INTO produit(id_salle, date_arrivee, date_depart, prix) VALUES(:id_salle, :date_arrivee, :date_depart, :prix)");
-            }
-            elseif(isset($_GET['modifier']))
-            {
-            $enregistrement_produit = $pdo->prepare("UPDATE produit SET id_salle = :id_salle, date_arrivee = :date_arrivee, date_depart = :date_depart, prix = :prix WHERE id_produit = :id_produit");
-            $id_produit = $_POST['id_produit'];
-            $enregistrement_produit->bindParam(":id_produit", $id_produit, PDO::PARAM_STR);
-            }
-
-
-            $enregistrement_produit->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
-            $enregistrement_produit->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
-            $enregistrement_produit->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
-            $enregistrement_produit->bindParam(":prix", $prix, PDO::PARAM_STR);
-            $enregistrement_produit->execute();
-
+    // vérification si la salle est bien disponible aux dates définies   
+    $dates = getDatesFromRange($date_arrivee, $date_depart);
+    foreach($dates AS $check_date)
+    {
+        $verif_dispo = $pdo->prepare("SELECT * FROM produit WHERE id_salle = :id_salle AND $check_date != :date_arrivee AND $check_date != :date_depart");
             
+        $verif_dispo->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
+        $verif_dispo->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
+        $verif_dispo->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
+        $verif_dispo->execute();
+        if($verif_dispo->rowCount() > 1 && isset($_GET['action']) && $_GET['action'] == 'ajout')
+        {
+            // si l'on obtient au moins 1 ligne de resultat alors la référence est déjà prise.
+            $message = '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la salle et/ou les dates sont indisponibles<br />Veuillez vérifier votre saisie</div>';
+            $erreur = true;
         }
+    }
+        
+    // insertion dans la BDD
+    if($erreur !== true) // si $erreur est différent de true lors les contrôles préalables sont ok
+    {
+    
+        if(isset($_GET['action']) && $_GET['action'] == 'ajout')
+        {
+        $enregistrement_produit = $pdo->prepare("INSERT INTO produit(id_salle, date_arrivee, date_depart, prix) VALUES(:id_salle, :date_arrivee, :date_depart, :prix)");
+        }
+        elseif(isset($_GET['modifier']))
+        {
+        $enregistrement_produit = $pdo->prepare("UPDATE produit SET id_salle = :id_salle, date_arrivee = :date_arrivee, date_depart = :date_depart, prix = :prix WHERE id_produit = :id_produit");
+        $id_produit = $_POST['id_produit'];
+        $enregistrement_produit->bindParam(":id_produit", $id_produit, PDO::PARAM_STR);
+        }
+
+
+        $enregistrement_produit->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
+        $enregistrement_produit->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
+        $enregistrement_produit->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
+        $enregistrement_produit->bindParam(":prix", $prix, PDO::PARAM_STR);
+        $enregistrement_produit->execute();
+
+        
+    }
 
 }
 
 require_once("../inc/head.inc.php");
 require_once("../inc/nav.inc.php");
-echo '<pre>'; print_r($_POST); echo '</pre>';
+// echo '<pre>'; print_r($_POST); echo '</pre>';
 ?>
 
 <div class="container">
@@ -111,7 +126,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
     </div>
     <?php
         // affichage de tous les produits dans un tableau html
-        $products = $pdo->query('SELECT p.id_produit AS "id produit", s.photo, p.date_arrivee AS "date d\'arrivée", p.date_depart AS "date de départ", s.id_salle AS "id salle", s.titre, p.prix, p.etat FROM produit p, salle s WHERE p.id_salle = s.id_salle');
+        $products = $pdo->query('SELECT p.id_produit AS "id produit", s.photo, DATE_FORMAT(p.date_arrivee, "%d-%m-%Y %H:%i") AS "date d\'arrivée", DATE_FORMAT(p.date_depart, "%d-%m-%Y %H:%i") AS "date de départ", s.id_salle AS "id salle", s.titre, p.prix, p.etat FROM produit p, salle s WHERE p.id_salle = s.id_salle');
         echo '<hr />';
 
         // balise ouverture du tableau
@@ -153,7 +168,7 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
 
                     
                 }
-                echo '<td><a href="" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a> <a href="?modifier&id_produit=' .  $ligne['id produit'] .'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer ce produit\'));" href="?supprimer&id_produit=' . $ligne['id produit'] .'" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
+                echo '<td><a href="../fiche_produit.php?id_produit=' . $ligne['id produit'] . '" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a> <a href="?modifier&id_produit=' .  $ligne['id produit'] .'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a> <a onclick="return(confirm(\'Etes-vous sûr de vouloir supprimer ce produit\'));" href="?supprimer&id_produit=' . $ligne['id produit'] .'" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>';
 
                 echo '</tr>';
             }
@@ -176,12 +191,12 @@ echo '<pre>'; print_r($_POST); echo '</pre>';
                 <label class="gestion_membre" for="date_arrivee">Date d'arrivée</label>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <input type="text" class="form-control" id="date_arrivee" name="date_arrivee" placeholder="dd-mm-yyyy hh:mm" aria-describedby="basic-addon1" value="<?php echo $date_arrivee; ?>">
+                    <input type="text" class="form-control" id="date_arrivee" name="date_arrivee" aria-describedby="basic-addon1" value="<?php echo $date_arrivee; ?>">
                 </div>
                 <label class="gestion_membre" for="date_depart">Date de départ</label>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <input type="text" class="form-control" id="date_depart" name="date_depart" placeholder="dd-mm-yyyy hh:mm" aria-describedby="basic-addon1" value="<?php echo $date_depart; ?>">
+                    <input type="text" class="form-control" id="date_depart" name="date_depart" aria-describedby="basic-addon1" value="<?php echo $date_depart; ?>">
                 </div>                
             </div>
 
