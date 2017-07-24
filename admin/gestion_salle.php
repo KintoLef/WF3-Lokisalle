@@ -269,7 +269,7 @@ require_once("../inc/nav.inc.php");
         echo '</table>';
       
       ?>
-        <a href="?action=ajout" class="btn btn-primary btn-membre pull-right">Ajouter une salle</a>
+        <a href="?action=ajout#form-salle" class="btn btn-primary btn-membre pull-right">Ajouter une salle</a>
         <br>
 
       <?php
@@ -277,7 +277,7 @@ require_once("../inc/nav.inc.php");
       if(isset($_GET['action']) && $_GET['action'] == 'ajout' || isset($_GET['modifier']))
       {
       ?>
-      <form method="post" action="" enctype="multipart/form-data">
+      <form method="post" action="" enctype="multipart/form-data" id="form-salle">
         <div class="row">
           <div class="col-md-5">
           

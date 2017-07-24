@@ -66,23 +66,44 @@ if(isset($_POST['salle']) && isset($_POST['date_arrivee']) && isset($_POST['date
     $date_depart = $_POST['date_depart'];
     $prix = $_POST['prix'];
 
-    // vérification si la salle est bien disponible aux dates définies   
-    $dates = getDatesFromRange($date_arrivee, $date_depart);
-    foreach($dates AS $check_date)
-    {
-        $verif_dispo = $pdo->prepare("SELECT * FROM produit WHERE id_salle = :id_salle AND $check_date != :date_arrivee AND $check_date != :date_depart");
-            
-        $verif_dispo->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
-        $verif_dispo->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
-        $verif_dispo->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
-        $verif_dispo->execute();
-        if($verif_dispo->rowCount() > 1 && isset($_GET['action']) && $_GET['action'] == 'ajout')
-        {
-            // si l'on obtient au moins 1 ligne de resultat alors la référence est déjà prise.
-            $message = '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la salle et/ou les dates sont indisponibles<br />Veuillez vérifier votre saisie</div>';
-            $erreur = true;
-        }
+    if(empty($prix) || !is_numeric($prix))
+    {        
+        $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Veuillez saisir un prix</div>';
+        $erreur = true;
     }
+
+    if($date_arrivee > $date_depart)
+    {
+        $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la date d\'arrivée est supérieur à la date de départ</div>';
+        $erreur = true;
+    }
+
+    if($date_arrivee < date('Y-m-d'))
+    {
+        $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la date d\'arrivée est inférieur à la date du jour</div>';
+        $erreur = true;
+    }
+
+    // vérification si la salle est bien disponible aux dates définies
+    if($erreur !== true)
+    { 
+        $dates = getDatesFromRange($date_arrivee, $date_depart);
+        foreach($dates AS $check_date)
+        {
+            $verif_dispo = $pdo->prepare("SELECT * FROM produit WHERE id_salle = :id_salle AND '$check_date' >= date_arrivee AND '$check_date' <= date_depart");
+                
+            $verif_dispo->bindParam(":id_salle", $id_salle, PDO::PARAM_STR);
+            // $verif_dispo->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
+            // $verif_dispo->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
+            $verif_dispo->execute();
+            if($verif_dispo->rowCount() > 0 && isset($_GET['action']) && $_GET['action'] == 'ajout')
+            {
+                // si l'on obtient au moins 1 ligne de resultat alors la date est déjà prise.
+                $message .= '<div class="alert alert-danger" role="alert" style="margin-top: 20px;">Attention, la salle et/ou les dates sont indisponibles<br />Veuillez vérifier votre saisie</div>';
+                $erreur = true;
+            }
+        }
+    }    
         
     // insertion dans la BDD
     if($erreur !== true) // si $erreur est différent de true lors les contrôles préalables sont ok
@@ -104,7 +125,7 @@ if(isset($_POST['salle']) && isset($_POST['date_arrivee']) && isset($_POST['date
         $enregistrement_produit->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
         $enregistrement_produit->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
         $enregistrement_produit->bindParam(":prix", $prix, PDO::PARAM_STR);
-        $enregistrement_produit->execute();
+        // $enregistrement_produit->execute();
 
         
     }
@@ -122,11 +143,11 @@ require_once("../inc/nav.inc.php");
         <h1>Gestion des produits</h1>
         <?= $message; // cette balise php inclus un echo (equivalent à la ligne du dessus) ?>
         <br>
-        <a href="?action=ajout" class="btn btn-primary">Ajouter un produit</a>
+        <a href="?action=ajout#form-produit" class="btn btn-primary">Ajouter un produit</a>
     </div>
     <?php
         // affichage de tous les produits dans un tableau html
-        $products = $pdo->query('SELECT p.id_produit AS "id produit", s.photo, DATE_FORMAT(p.date_arrivee, "%d-%m-%Y %H:%i") AS "date d\'arrivée", DATE_FORMAT(p.date_depart, "%d-%m-%Y %H:%i") AS "date de départ", s.id_salle AS "id salle", s.titre, p.prix, p.etat FROM produit p, salle s WHERE p.id_salle = s.id_salle');
+        $products = $pdo->query('SELECT p.id_produit AS "id produit", s.photo, DATE_FORMAT(p.date_arrivee, "%d-%m-%Y %H:%i") AS "date d\'arrivée", DATE_FORMAT(p.date_depart, "%d-%m-%Y %H:%i") AS "date de départ", s.id_salle AS "id salle", s.titre, p.prix, p.etat FROM produit p, salle s WHERE p.id_salle = s.id_salle ORDER BY p.id_produit');
         echo '<hr />';
 
         // balise ouverture du tableau
@@ -183,7 +204,7 @@ require_once("../inc/nav.inc.php");
     {
     ?>
 
-    <form method="post" action="">
+    <form method="post" action="" id="form-produit">
         <div class="row">
             <div class="col-md-6">
                 <!-- Input vide pour récupérer l'id_membre via $_GET -->

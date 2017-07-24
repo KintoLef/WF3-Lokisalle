@@ -15,6 +15,7 @@ $contenu = $pdo->query("SELECT * FROM salle s, produit p WHERE p.id_salle = s.id
 
 require_once("inc/head.inc.php");
 require_once("inc/nav.inc.php");
+echo '<pre>'; print_r($_POST); echo '</pre>';
 ?>
 
 <div class="container">
@@ -57,8 +58,9 @@ require_once("inc/nav.inc.php");
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Prix</label>
-                    <input type="range" min="0" value="" step="50" max="2000">
+                    <label>Prix max.</label>
+                    <input type="range" name="prix" min="50" max="1000" value="0" step="10" oninput="document.getElementById('AfficheRange').textContent=value" />
+                    <span id="AfficheRange">0</span>
                 </div>
                 <label>Période</label>
                 <p class="info_periode">Date d'arrivée</p>
