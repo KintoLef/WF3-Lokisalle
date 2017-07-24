@@ -30,11 +30,14 @@ require_once("inc/nav.inc.php");
     if(utilisateur_admin() && (isset($_GET['afficher']) && !empty($_GET['id_membre']) && is_numeric($_GET['id_membre'])))
     {
         $id_membre = $_GET['id_membre'];
-        $affichage = $pdo->prepare("SELECT * FROM membre WHERE id_embre = :id_membre");
+        $affichage = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :id_membre");
         $affichage->bindParam(":id_membre", $id_membre, PDO::PARAM_STR);
         $affichage->execute();
 
     ?>
+        <div class="starter-template">
+            <h1><span class="glyphicon glyphicon-user"></span><?php echo ' ' . $_SESSION['membre']['prenom'] . ' ' . $_SESSION['membre']['nom'] . ' ! ' . $role ?></h1>
+        </div>
         <div class="row">
             <div class="col-sm-9 col-sm-offset-2">
                 <div class="col-sm-10" style="border-radius: 3px; border: 1px solid #AAA;">

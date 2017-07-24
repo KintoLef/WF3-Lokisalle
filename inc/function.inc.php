@@ -20,3 +20,5 @@ function utilisateur_admin()
     }
     return false;
 }
+
+// fonction pour vérifier la disponiblité des produits
